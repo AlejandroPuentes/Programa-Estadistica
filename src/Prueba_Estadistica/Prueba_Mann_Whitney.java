@@ -17,6 +17,7 @@ public class Prueba_Mann_Whitney {
     ArrayList<Observaciones>obs1;
     ArrayList<Observaciones>obs2;
     double rangos [][];
+    int contadorr;
     
 
     public Prueba_Mann_Whitney() {
@@ -61,6 +62,7 @@ public class Prueba_Mann_Whitney {
     
     public void mescla () {
         int cont=contador(obs1,obs2);
+        contadorr = cont;
         rangos= new double[2][contador(obs1,obs2)];
         int arraux[]=new int[cont];
         //System.out.println();
@@ -155,7 +157,18 @@ public class Prueba_Mann_Whitney {
         }
     }
             
+    public ArrayList obs1(){
+        return obs1;
+    }
+    public ArrayList obs2(){
+        return obs2;
+    }
     
+    public double [][] Vectrango(){
+        return rangos;
+    }
+    
+            
     public double rango1(){
         double suma=0;
         for (int i = 0; i < obs1.size(); i++) {
@@ -165,13 +178,14 @@ public class Prueba_Mann_Whitney {
         return suma;
         
     }
-    public void rango2 (){
+    public double rango2 (){
         double suma=0;
         for (int i = 0; i < obs2.size(); i++) {
             suma += obs2.get(i).rango;
             
         }
         System.out.println(suma);
+        return suma;
     }
     public int  tamanoN1(){
         int N1;
@@ -222,6 +236,16 @@ public class Prueba_Mann_Whitney {
         return  Z ;
     }
     
-    
+    public double calculaz(double v){ //funcion de densidad de probabilidad normal
+        double N=Math.exp(-Math.pow(v, 2)/2)/Math.sqrt(2*Math.PI);
+        return N;
+    }
+    public double calculazacum(double v){  //Funcion de distribucion de probabilidad normal
+        double acumulador = 0.00000028666;
+        for(double i=-5;i<v;i=i+0.00001){
+                acumulador = acumulador + (0.00001 * calculaz(i-0.000005));
+        }
+        return acumulador;
+    }
    
 }
